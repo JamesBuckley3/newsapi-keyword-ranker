@@ -1,0 +1,19 @@
+{
+    "status": "ok",
+    "totalResults": 35,
+    "articles": [
+        {
+            "source": {
+                "id": "bbc-news",
+                "name": "BBC News"
+            },
+            "author": "John Smith",
+            "title": "AI reshaping education around the world",
+            "description": "A look at how AI is changing classrooms.",
+            "url": "https://www.bbc.com/news/ai-education",
+            "publishedAt": "2025-06-23T15:20:00Z",
+            "content": "..."
+        },
+     ...
+    ]
+}

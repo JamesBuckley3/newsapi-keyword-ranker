@@ -1,0 +1,1 @@
+DROP TABLE articles, sources, keyword_rankings;
