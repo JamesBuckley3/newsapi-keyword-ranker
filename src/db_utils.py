@@ -24,13 +24,12 @@ def get_or_create_source(conn, source_dict):
 
     Args:
         conn (psycopg2.connection): Active database connection
-        source_dict (dict): Source info from the article (contains 'name' and optionally 'url')
+        source_dict (dict): Source info from the article (contains 'name')
 
     Returns:
         int: ID of the existing or newly inserted source
     """
     name = source_dict.get("name")
-    url = source_dict.get("url", "")
 
     with conn.cursor() as cur:
         # Check if source already exists
@@ -40,9 +39,7 @@ def get_or_create_source(conn, source_dict):
             return result[0]
 
         # Insert new source
-        cur.execute(
-            "INSERT INTO sources (name, url) VALUES (%s, %s) RETURNING id", (name, url)
-        )
+        cur.execute("INSERT INTO sources (name) VALUES (%s) RETURNING id", (name,))
         return cur.fetchone()[0]
 
 

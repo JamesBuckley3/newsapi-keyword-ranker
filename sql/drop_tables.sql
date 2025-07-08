@@ -1,1 +1,3 @@
-DROP TABLE articles, sources, keyword_rankings;
+DROP TABLE ARTICLES,
+SOURCES,
+KEYWORD_RANKINGS;

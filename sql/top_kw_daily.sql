@@ -1,0 +1,19 @@
+SELECT
+	KEYWORD,
+	COLLECTED_AT as date,
+	RANK
+FROM
+	(
+		SELECT
+			*,
+			RANK() OVER (
+				PARTITION BY
+					COLLECTED_AT
+				ORDER BY
+					RANK ASC
+			) AS R
+		FROM
+			KEYWORD_RANKINGS
+	) SUB
+WHERE
+	R = 1;

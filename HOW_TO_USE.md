@@ -7,6 +7,7 @@ This guide walks you through setting up and running the pipeline that fetches da
 ## 📦 Requirements
 
 - Python 3.8+ and required packages (`matplotlib`, `requests`, `nltk` and `psycopg2`)
+    - Optional: `spaCy` for NLP tagging
 - PostgreSQL (e.g. via pgAdmin or CLI)
 - A [NewsAPI](https://newsapi.org) API key
 
@@ -152,6 +153,8 @@ Make sure:
 
     - Output console from the script (keep pause in the .bat for debugging)
 
+---
+
 ## 🖐️ 6. Run Manually (Optional)
 
 To run the pipeline manually:
@@ -163,3 +166,56 @@ To run the pipeline manually:
 3. Watch the command prompt for any output or errors (thanks to pause)
 
 4. Check your charts/ folder for the new image
+
+---
+
+## 📜 Analyse with SQL scripts
+
+In your database tool of choice you can gain insights on the data tables by executing the SQL queries in the `sql` folder. 
+
+Most of the scripts are focused on keyword analysis (rankings, trends, etc).
+
+---
+
+## 📊 Analyse with NLP
+
+Once you've exported your `keyword_rankings` table to a CSV file (e.g., using your database tool), you can perform NLP tagging using the included Python script.
+
+### Steps:
+
+1. **Export your data**  
+   Export the `keyword_rankings` table as a CSV file (e.g., `keyword_rankings.csv`).
+
+2. **Update file paths**  
+   Open `src/nlp_tagging_keywords.py` and update the `read_csv()` and `to_csv()` file paths to match your file locations.
+
+3. **Run the script**  
+   Execute the script using Python:
+
+   ```bash
+   python src/nlp_tagging_keywords.py
+   ```
+
+### What it does:
+
+The script performs two types of NLP tagging on each unique keyword:
+
+- **Part-of-Speech (POS)** – Labels each word as a noun, verb, adjective, etc.
+
+- **Named Entity Recognition (NER)** – Identifies entities like people, organizations, locations, and dates.
+
+### Output:
+
+You’ll get a new CSV file (e.g., keyword_nlp_analysis.csv) containing enriched information for each keyword, including:
+
+- `pos` (e.g., NOUN, VERB)
+
+- `tag` (fine-grained POS)
+
+- `lemma` (base word form)
+
+- `entity` (NER label, if applicable)
+
+- `is_entity` (True/False)
+
+- `extracted_entity_text` (e.g., “Bezos” → PERSON)
